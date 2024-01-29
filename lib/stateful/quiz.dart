@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_adv_basics/data/questions.dart';
 import 'package:flutter_adv_basics/enumeration/screens.dart';
 import 'package:flutter_adv_basics/screen/home/start_screen.dart';
 import 'package:flutter_adv_basics/screen/questions/questions_screen.dart';
@@ -16,7 +17,7 @@ class _QuizState extends State<Quiz> {
   var activeScreen = Screens.startScreen;
 
   // this list will be used for storing the user's answers
-  final List<String> selectedAnswers = [];
+  List<String> selectedAnswers = [];
 
   // this approach to switch screens is one of 'rendering content conditionally'
   void switchScreen() {
@@ -26,11 +27,20 @@ class _QuizState extends State<Quiz> {
   // this method is responsible for checking if the answers already exists in
   // the list before added it
   void chooseAnswer(String answer) {
-    if (!selectedAnswers.contains(answer)) {
-      selectedAnswers.add(answer);
-      if (kDebugMode) {
-        print('Answers: $selectedAnswers');
-      }
+    selectedAnswers.add(answer);
+    if (kDebugMode) {
+      print('Answers: $selectedAnswers');
+    }
+
+    // if the length of both lists is equals, so this is time to change the
+    // screen
+    if (selectedAnswers.length == questions.length) {
+      // force to rebuild the widget (perform the build method)
+      setState(() {
+        // reset the answer list
+        selectedAnswers = [];
+        activeScreen = Screens.startScreen;
+      });
     }
   }
 
@@ -40,7 +50,6 @@ class _QuizState extends State<Quiz> {
     // screen widget
     Widget screenWidget = StartScreen(switchScreen);
     if (activeScreen == Screens.questionsScreen) {
-
       // changed the constructor, passing a function as argument
       screenWidget = QuestionsScreen(onSelectedAnswer: chooseAnswer);
     }

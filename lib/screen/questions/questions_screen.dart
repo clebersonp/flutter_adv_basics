@@ -28,14 +28,11 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     // widget is a property of class State, which is possible to access data
     // from the super widget, QuestionScreen in this case
     widget.onSelectedAnswer(selectedAnswer);
-    // only changes the value if it is smaller than questions list size
-    if (currentQuestionIndex < questions.length - 1) {
-      // call the setState method from State class to rebuild the widgets by
-      // calling the build method
-      setState(() {
-        currentQuestionIndex++;
-      });
-    }
+    // call the setState method from State class to rebuild the widgets by
+    // calling the build method
+    setState(() {
+      currentQuestionIndex++;
+    });
   }
 
   // dart spread operator: ... (3 dots) in front of a List ou anything that
