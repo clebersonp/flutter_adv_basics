@@ -4,6 +4,7 @@ import 'package:flutter_adv_basics/data/questions.dart';
 import 'package:flutter_adv_basics/enumeration/screens.dart';
 import 'package:flutter_adv_basics/screen/home/start_screen.dart';
 import 'package:flutter_adv_basics/screen/questions/questions_screen.dart';
+import 'package:flutter_adv_basics/screen/results/results_screen.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -37,11 +38,19 @@ class _QuizState extends State<Quiz> {
     if (selectedAnswers.length == questions.length) {
       // force to rebuild the widget (perform the build method)
       setState(() {
-        // reset the answer list
-        selectedAnswers = [];
-        activeScreen = Screens.startScreen;
+        activeScreen = Screens.resultsScreen;
       });
     }
+  }
+
+  // reset the quiz
+  void resetQuiz() {
+    setState(() {
+      // erase the list of selected answers
+      selectedAnswers = [];
+      // change the screen to rebuild it
+      activeScreen = Screens.startScreen;
+    });
   }
 
   @override
@@ -52,6 +61,9 @@ class _QuizState extends State<Quiz> {
     if (activeScreen == Screens.questionsScreen) {
       // changed the constructor, passing a function as argument
       screenWidget = QuestionsScreen(onSelectedAnswer: chooseAnswer);
+    }
+    if (activeScreen == Screens.resultsScreen) {
+      screenWidget = ResultsScreen(onResetQuiz: resetQuiz);
     }
 
     return MaterialApp(
