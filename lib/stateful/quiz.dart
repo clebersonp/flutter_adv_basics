@@ -10,7 +10,7 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  Widget activeScreen = const StartScreen();
+  Widget activeScreen = const StartScreen(switchScreen);
 
   // this approach to switch screens is one of 'rendering content conditionally'
   void switchScreen() {
