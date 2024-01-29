@@ -20,20 +20,24 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     // sizedBox is another solution instead of using the Center widget
     return SizedBox(
       width: double.infinity, // special value to use as much space as possible
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            currentQuestion.text,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
+      child: Container(
+        margin: const EdgeInsets.all(40),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              currentQuestion.text,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
             ),
-          ),
-          const SizedBox(height: 30),
-          ...currentQuestion.answers
-              .map((a) => AnswerButton(onTap: () {}, answerText: a))
-        ],
+            const SizedBox(height: 30),
+            ...currentQuestion.answers
+                .map((a) => AnswerButton(onTap: () {}, answerText: a))
+          ],
+        ),
       ),
     );
   }
