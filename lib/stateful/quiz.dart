@@ -10,7 +10,16 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  Widget activeScreen = const StartScreen(switchScreen);
+  // question mark means that activeScreen can be NULL
+  Widget? activeScreen;
+
+  // this initialize the state and it will be executed before the build method
+  @override
+  void initState() {
+    activeScreen = StartScreen(switchScreen);
+    // pass the initialization to the super classes
+    super.initState();
+  }
 
   // this approach to switch screens is one of 'rendering content conditionally'
   void switchScreen() {
