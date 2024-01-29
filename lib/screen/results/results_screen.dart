@@ -1,12 +1,21 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ResultsScreen extends StatelessWidget {
-  const ResultsScreen({super.key, required this.onResetQuiz});
+  const ResultsScreen({
+    super.key,
+    required this.onResetQuiz,
+    required this.chosenAnswers,
+  });
 
   final void Function() onResetQuiz;
+  final List<String> chosenAnswers;
 
   @override
   Widget build(BuildContext context) {
+    if (kDebugMode) {
+      print('Chosen Answers: $chosenAnswers');
+    }
     return SizedBox(
       width: double.infinity, // special value to use as much space as possible
       child: Container(
