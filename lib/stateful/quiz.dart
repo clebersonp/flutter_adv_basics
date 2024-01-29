@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_adv_basics/enumeration/screens.dart';
 import 'package:flutter_adv_basics/screen/home/start_screen.dart';
 import 'package:flutter_adv_basics/screen/questions/questions_screen.dart';
 
@@ -10,20 +11,12 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  // question mark means that activeScreen can be NULL
-  Widget? activeScreen;
-
-  // this initialize the state and it will be executed before the build method
-  @override
-  void initState() {
-    activeScreen = StartScreen(switchScreen);
-    // pass the initialization to the super classes
-    super.initState();
-  }
+  // using enum in dart to check with ternary operator later
+  var activeScreen = Screens.startScreen;
 
   // this approach to switch screens is one of 'rendering content conditionally'
   void switchScreen() {
-    setState(() => activeScreen = const QuestionsScreen());
+    setState(() => activeScreen = Screens.questionsScreen);
   }
 
   @override
@@ -38,7 +31,9 @@ class _QuizState extends State<Quiz> {
               end: Alignment.bottomRight,
             ),
           ),
-          child: activeScreen,
+          child: activeScreen == Screens.startScreen
+              ? StartScreen(switchScreen)
+              : const QuestionsScreen(),
         ),
       ),
     );
