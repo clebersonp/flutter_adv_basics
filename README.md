@@ -2,6 +2,10 @@
 
 A [Flutter course](https://github.com/academind/flutter-complete-guide-course-resources).
 
+## Install third-party package
+
+[Google Fonts](https://pub.dev/packages/google_fonts)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
