@@ -10,12 +10,29 @@ class QuestionsScreen extends StatefulWidget {
 }
 
 class _QuestionsScreenState extends State<QuestionsScreen> {
+  // managing the questions index
+  var currentQuestionIndex = 0;
+
+  // the variable currentQuestionIndex changed, therefore we need create a
+  // StatefulWidget to manage it because the build method needs to be rerun
+  // every click button
+  void answerQuestion() {
+    // only changes the value if it is smaller than questions list size
+    if (currentQuestionIndex < questions.length - 1) {
+      // call the setState method from State class to rebuild the widgets by
+      // calling the build method
+      setState(() {
+        currentQuestionIndex++;
+      });
+    }
+  }
+
   // dart spread operator: ... (3 dots) in front of a List ou anything that
   // is Iterable
   @override
   Widget build(BuildContext context) {
     // using the dummy questions list
-    final currentQuestion = questions[0];
+    final currentQuestion = questions[currentQuestionIndex];
 
     // sizedBox is another solution instead of using the Center widget
     return SizedBox(
@@ -34,9 +51,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               ),
             ),
             const SizedBox(height: 30),
-            ...currentQuestion
-                .getShuffledAnswers()
-                .map((answer) => AnswerButton(onTap: () {}, answerText: answer))
+            ...currentQuestion.getShuffledAnswers().map((answer) =>
+                AnswerButton(onTap: answerQuestion, answerText: answer))
           ],
         ),
       ),
