@@ -21,6 +21,13 @@ class _QuizState extends State<Quiz> {
 
   @override
   Widget build(BuildContext context) {
+    // created a local variable to use it as a conditional to change the
+    // screen widget
+    Widget screenWidget = StartScreen(switchScreen);
+    if (activeScreen == Screens.questionsScreen) {
+      screenWidget = const QuestionsScreen();
+    }
+
     return MaterialApp(
       home: Scaffold(
         body: Container(
@@ -31,9 +38,7 @@ class _QuizState extends State<Quiz> {
               end: Alignment.bottomRight,
             ),
           ),
-          child: activeScreen == Screens.startScreen
-              ? StartScreen(switchScreen)
-              : const QuestionsScreen(),
+          child: screenWidget,
         ),
       ),
     );
