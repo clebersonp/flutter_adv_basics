@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adv_basics/data/questions.dart';
 import 'package:flutter_adv_basics/enumeration/screens.dart';
@@ -29,10 +28,6 @@ class _QuizState extends State<Quiz> {
   // the list before added it
   void chooseAnswer(String answer) {
     selectedAnswers.add(answer);
-    if (kDebugMode) {
-      print('Answers: $selectedAnswers');
-    }
-
     // if the length of both lists is equals, so this is time to change the
     // screen
     if (selectedAnswers.length == questions.length) {
