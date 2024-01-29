@@ -1,4 +1,5 @@
 enum Screens {
   startScreen,
-  questionsScreen;
+  questionsScreen,
+  resultsScreen;
 }
