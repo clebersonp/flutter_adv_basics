@@ -4,7 +4,14 @@ import 'package:flutter_adv_basics/data/questions.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class QuestionsScreen extends StatefulWidget {
-  const QuestionsScreen({super.key});
+  const QuestionsScreen({
+    super.key,
+    required this.onSelectedAnswer,
+  });
+
+  // added new properties that store a pointer to a function that receives a
+  // string as argument
+  final void Function(String answer) onSelectedAnswer;
 
   @override
   State<QuestionsScreen> createState() => _QuestionsScreenState();
@@ -17,7 +24,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   // the variable currentQuestionIndex changed, therefore we need create a
   // StatefulWidget to manage it because the build method needs to be rerun
   // every click button
-  void answerQuestion() {
+  void answerQuestion(String selectedAnswer) {
+    // widget is a property of class State, which is possible to access data
+    // from the super widget, QuestionScreen in this case
+    widget.onSelectedAnswer(selectedAnswer);
     // only changes the value if it is smaller than questions list size
     if (currentQuestionIndex < questions.length - 1) {
       // call the setState method from State class to rebuild the widgets by
@@ -54,8 +64,18 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               ),
             ),
             const SizedBox(height: 30),
-            ...currentQuestion.getShuffledAnswers().map((answer) =>
-                AnswerButton(onTap: answerQuestion, answerText: answer))
+            ...currentQuestion
+                .getShuffledAnswers()
+                .map((answer) => AnswerButton(
+                      onTap: () {
+                        // this does not call instantly, it will be called
+                        // when the anonymous function( () {} ) is called.
+                        // Therefore, it will be able to pass 'this' answer
+                        // to the real function to store this answer
+                        answerQuestion(answer);
+                      },
+                      answerText: answer,
+                    ))
           ],
         ),
       ),

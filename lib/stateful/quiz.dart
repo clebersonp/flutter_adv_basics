@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adv_basics/enumeration/screens.dart';
 import 'package:flutter_adv_basics/screen/home/start_screen.dart';
@@ -14,9 +15,23 @@ class _QuizState extends State<Quiz> {
   // using enum in dart to check with ternary operator later
   var activeScreen = Screens.startScreen;
 
+  // this list will be used for storing the user's answers
+  final List<String> selectedAnswers = [];
+
   // this approach to switch screens is one of 'rendering content conditionally'
   void switchScreen() {
     setState(() => activeScreen = Screens.questionsScreen);
+  }
+
+  // this method is responsible for checking if the answers already exists in
+  // the list before added it
+  void chooseAnswer(String answer) {
+    if (!selectedAnswers.contains(answer)) {
+      selectedAnswers.add(answer);
+      if (kDebugMode) {
+        print('Answers: $selectedAnswers');
+      }
+    }
   }
 
   @override
@@ -25,7 +40,9 @@ class _QuizState extends State<Quiz> {
     // screen widget
     Widget screenWidget = StartScreen(switchScreen);
     if (activeScreen == Screens.questionsScreen) {
-      screenWidget = const QuestionsScreen();
+
+      // changed the constructor, passing a function as argument
+      screenWidget = QuestionsScreen(onSelectedAnswer: chooseAnswer);
     }
 
     return MaterialApp(
