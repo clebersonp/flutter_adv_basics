@@ -17,7 +17,9 @@ class _QuizState extends State<Quiz> {
   var activeScreen = Screens.startScreen;
 
   // this list will be used for storing the user's answers
-  List<String> selectedAnswers = [];
+  // private can be applied for properties and methods by starting with _
+  // (underscore) before the name
+  List<String> _selectedAnswers = [];
 
   // this approach to switch screens is one of 'rendering content conditionally'
   void switchScreen() {
@@ -27,10 +29,10 @@ class _QuizState extends State<Quiz> {
   // this method is responsible for checking if the answers already exists in
   // the list before added it
   void chooseAnswer(String answer) {
-    selectedAnswers.add(answer);
+    _selectedAnswers.add(answer);
     // if the length of both lists is equals, so this is time to change the
     // screen
-    if (selectedAnswers.length == questions.length) {
+    if (_selectedAnswers.length == questions.length) {
       // force to rebuild the widget (perform the build method)
       setState(() {
         activeScreen = Screens.resultsScreen;
@@ -42,7 +44,7 @@ class _QuizState extends State<Quiz> {
   void resetQuiz() {
     setState(() {
       // erase the list of selected answers
-      selectedAnswers = [];
+      _selectedAnswers = [];
       // change the screen to rebuild it
       activeScreen = Screens.questionsScreen;
     });
@@ -60,7 +62,7 @@ class _QuizState extends State<Quiz> {
     if (activeScreen == Screens.resultsScreen) {
       screenWidget = ResultsScreen(
         onResetQuiz: resetQuiz,
-        chosenAnswers: selectedAnswers,
+        chosenAnswers: _selectedAnswers,
       );
     }
 
