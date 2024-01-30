@@ -8,6 +8,7 @@ import 'package:flutter_adv_basics/screen/results/results_screen.dart';
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
 
+  // dart feature 'arrow function' () => someFunction();
   @override
   State<Quiz> createState() => _QuizState();
 }
