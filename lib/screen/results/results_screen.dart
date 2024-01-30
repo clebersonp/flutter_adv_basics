@@ -32,9 +32,14 @@ class ResultsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final summaryData = getSummaryData();
+    final numTotalQuestions = questions.length;
+    final numCorrectQuestions =
+        summaryData.where((data) => data['is_correct'] as bool).length;
+
     if (kDebugMode) {
       print('Chosen Answers: $chosenAnswers');
-      print('Summary: ${getSummaryData()}');
+      print('Summary: $summaryData');
     }
     return SizedBox(
       width: double.infinity, // special value to use as much space as possible
@@ -43,9 +48,11 @@ class ResultsScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('You answered X out of Y questions correctly!'),
+            Text(
+              'You answered $numCorrectQuestions out of $numTotalQuestions questions correctly!',
+            ),
             const SizedBox(height: 30),
-            QuestionsSummary(getSummaryData()),
+            QuestionsSummary(summaryData),
             const SizedBox(height: 30),
             TextButton(
               onPressed: onResetQuiz,
