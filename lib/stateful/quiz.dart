@@ -44,7 +44,7 @@ class _QuizState extends State<Quiz> {
       // erase the list of selected answers
       selectedAnswers = [];
       // change the screen to rebuild it
-      activeScreen = Screens.startScreen;
+      activeScreen = Screens.questionsScreen;
     });
   }
 
