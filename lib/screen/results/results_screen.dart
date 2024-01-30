@@ -14,7 +14,8 @@ class ResultsScreen extends StatelessWidget {
   final void Function() onResetQuiz;
   final List<String> chosenAnswers;
 
-  List<Map<String, Object>> getSummaryData() {
+  // dart feature for get methods instead of getSummaryData()
+  List<Map<String, Object>> get summaryData {
     final List<Map<String, Object>> summary = [];
 
     for (var i = 0; i < chosenAnswers.length; i++) {
@@ -33,7 +34,6 @@ class ResultsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final summaryData = getSummaryData();
     final numTotalQuestions = questions.length;
     final numCorrectQuestions =
         summaryData.where((data) => data['is_correct'] as bool).length;
